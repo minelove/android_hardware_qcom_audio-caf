@@ -162,6 +162,8 @@ public:
     virtual status_t    setParameters(const String8& keyValuePairs);
     virtual String8     getParameters(const String8& keys);
 
+    virtual status_t    setMasterMute(bool muted);
+
     // create I/O streams
     virtual AudioStreamOut* openOutputStreamWithFlags(
                                 uint32_t devices,
@@ -183,6 +185,18 @@ public:
                                 uint32_t *sampleRate,
                                 status_t *status,
                                 AudioSystem::audio_in_acoustics acoustics);
+
+    virtual int createAudioPatch(unsigned int num_sources,
+                               const struct audio_port_config *sources,
+                               unsigned int num_sinks,
+                               const struct audio_port_config *sinks,
+                               audio_patch_handle_t *handle);
+
+    virtual int releaseAudioPatch(audio_patch_handle_t handle);
+
+    virtual int getAudioPort(struct audio_port *port);
+
+    virtual int setAudioPortConfig(const struct audio_port_config *config);
 
     virtual    void        closeOutputStream(AudioStreamOut* out);
     virtual    void        closeInputStream(AudioStreamIn* in);
